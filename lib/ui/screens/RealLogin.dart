@@ -1,49 +1,21 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rehtjydtkuyiifykudrthag/cubit/my_app_cubit.dart';
+import 'package:rehtjydtkuyiifykudrthag/cubit/my_app_state.dart';
 import 'package:rehtjydtkuyiifykudrthag/ui/screens/Login.dart';
+import 'package:rehtjydtkuyiifykudrthag/ui/screens/homepage3.dart';
 
 import '../../main.dart';
 
-class LoginScreen extends StatefulWidget {
-   LoginScreen({super.key});
+class LoginScreen extends StatelessWidget {
+  LoginScreen({super.key});
 
-  @override
-  State<LoginScreen> createState() => _loginScreenState();
-}
-
-class _loginScreenState extends State<LoginScreen> {
   TextEditingController emailC = TextEditingController();
 
   TextEditingController passwordC = TextEditingController();
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-  Future<void> login(String email,
-      String password,) async {
-    if (formKey.currentState!.validate()) {
-      try {
-        await FirebaseAuth.instance.signInWithEmailAndPassword(
-            email: email,
-            password: password
-        ).then((value) {
-          if (value.user != null) {
-            Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                    builder: (context) {
-                      return const MyHomePage3();
-                    })
-            );
-          }
-        });
-      } catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(e.toString()))
-        );
-      }
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,25 +55,50 @@ class _loginScreenState extends State<LoginScreen> {
                 height: 10,
               ),
               Row(
-                mainAxisAlignment:MainAxisAlignment.spaceEvenly ,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  ElevatedButton(
-                      onPressed: () async{
-                        await    login(
-                          emailC.text,
-                          passwordC.text,
+                  BlocConsumer<AppCubitA, AppStateA>(
+                    listener: (context, state) {
+                      if (state is LoginErrorState) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              state.error,
+                            ),
+                          ),
                         );
-                      },
-                      child: const Text('Login')),
+                      } else if (state is LoginDoneState) {
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (context) {
+                          return const MyHomePage3();
+                        }));
+                      }
+                    },
+                    builder: (context, state) {
+                      return ElevatedButton(
+                        onPressed: () async {
+                          if (formKey.currentState!.validate()) {
+                            context
+                                .read<AppCubitA>()
+                                .login(emailC.text, passwordC.text);
+                          }
+                        },
+                        child: state is LoginLoadingState
+                            ? const Center(
+                                child: CircularProgressIndicator(
+                                  color: Colors.white,
+                                ),
+                              )
+                            : const Text('Login'),
+                      );
+                    },
+                  ),
                   ElevatedButton(
-                      onPressed: () async{
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) {
-                                  return SignUp();
-                                })
-                        );
+                      onPressed: () async {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return SignUp();
+                        }));
                       },
                       child: const Text('Create account')),
                 ],

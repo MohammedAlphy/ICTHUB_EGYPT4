@@ -12,22 +12,7 @@ import 'package:rehtjydtkuyiifykudrthag/main.dart';
 
 class NetworkRequest {
 
-  static Future<List<Products>> getData() async{
 
-    final response = await http.get(Uri.parse('https://dummyjson.com/products'));
-    List<Products> ProductsList = [] ;
-
-    if(response.statusCode == 200) {
-      var jsonResponse =
-      convert.jsonDecode(response.body) as Map<String, dynamic>;
-      for (var item in jsonResponse['products']){
-        ProductsList.add(Products.fromJson(item));
-      }
-    }
-    return ProductsList;
-  }
-
-  static List <Products> products = [] ;
   static bool isLoading = true ;
   static bool isLoadingProfile = true ;
 
@@ -40,7 +25,8 @@ class NetworkRequest {
       return null;
     }
   }
-static DocumentSnapshot? userData ;
+  static DocumentSnapshot? userData ;
+
 
 }
 
