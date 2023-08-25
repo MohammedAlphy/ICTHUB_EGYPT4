@@ -30,3 +30,28 @@ class GetDatErrorState extends AppStateA {
 
 //sum
 class GetSum extends AppStateA {}
+
+//image
+
+class PickImageState extends AppStateA {}
+
+class UploadDoneState extends AppStateA {}
+
+class UploadLoadingState extends AppStateA {}
+
+class UploadErrorState extends AppStateA {
+  final String error;
+  UploadErrorState(this.error);
+}
+
+
+
+//for acc
+class CreateAccLoadingState extends AppStateA {}
+
+class CreateAccErrorState extends AppStateA {
+  final String error;
+  CreateAccErrorState(this.error);
+}
+
+class CreateAccDoneState extends AppStateA {}
