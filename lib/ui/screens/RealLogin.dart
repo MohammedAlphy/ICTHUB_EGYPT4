@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rehtjydtkuyiifykudrthag/cubit/my_app_cubit.dart';
 import 'package:rehtjydtkuyiifykudrthag/cubit/my_app_state.dart';
 import 'package:rehtjydtkuyiifykudrthag/ui/screens/signUp.dart';
@@ -167,17 +168,23 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              // SizedBox(
-              //   height: MediaQuery.of(context).size.height * 0.03,
-              // ),
-              // const Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     SvgPicture.assest(''
-              //
-              //      )
-              //   ],
-              // ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.03,
+              ),
+               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SvgPicture.asset('assets/facebook.svg'
+
+                   ),
+                  SvgPicture.asset('assets/google.svg'
+
+                  ),
+                  SvgPicture.asset('assets/apple.svg'
+
+                  ),
+                ],
+              ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.1,
               ),
