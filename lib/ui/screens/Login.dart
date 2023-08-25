@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rehtjydtkuyiifykudrthag/ui/screens/RealLogin.dart';
+import 'package:rehtjydtkuyiifykudrthag/ui/screens/homepage3.dart';
 
 import '../../main.dart';
 
@@ -76,6 +77,7 @@ class _SignUpState extends State<SignUp> {
         'phone': phone,
         'name': name,
         'uid': uid,
+        'image': '',
       },
           SetOptions(merge: true)
       );
