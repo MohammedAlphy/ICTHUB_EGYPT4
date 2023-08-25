@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:rehtjydtkuyiifykudrthag/ui/screens/Home1.dart';
 import 'package:rehtjydtkuyiifykudrthag/ui/screens/Profile.dart';
@@ -27,56 +28,65 @@ class _MyHomePage3State extends State<MyHomePage3> {
     Profile(),
   ];
 
-  Future<bool> signOut() async {
-    try {
-      await FirebaseAuth.instance.signOut();
-      return true;
-    } catch (e) {
-      print(e.toString());
-      return false;
-    }
-  }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('ICTHUB'),
-        backgroundColor: Colors.blue,
-        foregroundColor: Colors.black,
-        leading: IconButton(
-            onPressed: () async {
-              await signOut().then((value) {
-                if (value) {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) {
-                    return LoginScreen();
-                  }));
-                }
-              });
-            },
-            icon: const Icon(Icons.logout)),
-        centerTitle: true,
-        titleTextStyle: const TextStyle(
-            fontSize: 40, color: Colors.black, fontWeight: FontWeight.bold),
-        actions: const [
-          Icon(Icons.menu),
-        ],
-      ),
+      backgroundColor: const Color(0xFFFFFFFF),
       body: screens[currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
+      // appBar: AppBar(
+      //   elevation: 0,
+      //   title: const Text('ICTHUB'),
+      //   backgroundColor: const Color(0xFFFFFFFF),
+      //   foregroundColor: Colors.black,
+      //   leading: IconButton(
+      //       onPressed: () async {
+      //         await signOut().then((value) {
+      //           if (value) {
+      //             Navigator.pushReplacement(context,
+      //                 MaterialPageRoute(builder: (context) {
+      //               return LoginScreen();
+      //             }));
+      //           }
+      //         });
+      //       },
+      //       icon: const Icon(Icons.logout)),
+      //   centerTitle: true,
+      //   titleTextStyle: const TextStyle(
+      //       fontSize: 40, color: Colors.black, fontWeight: FontWeight.bold),
+      //   actions: const [
+      //     Icon(Icons.menu),
+      //   ],
+      // ),
+      bottomSheet: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30),
+            color: const Color(0xFF787878)),
+        margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+        child: BottomNavigationBar(
+          selectedItemColor: const Color(0xFFFFFFFF),
+          unselectedItemColor: const Color(0xFF8091A1),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
           currentIndex: currentIndex,
           onTap: (index) {
             getPage(index);
           },
-          backgroundColor: Colors.white,
           items: const [
             BottomNavigationBarItem(
                 icon: Icon(Icons.home_filled), label: 'home'),
             BottomNavigationBarItem(
-                icon: Icon(Icons.calculate_outlined), label: 'Counter'),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-          ]),
+              icon: Icon(Icons.calculate_outlined),
+              label: 'counter',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'profile',
+            )
+          ],
+        ),
+      ),
     );
   }
 }

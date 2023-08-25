@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rehtjydtkuyiifykudrthag/BlocObserver.dart';
 import 'package:rehtjydtkuyiifykudrthag/cubit/my_app_cubit.dart';
 import 'package:rehtjydtkuyiifykudrthag/ui/screens/Home1.dart';
-import 'package:rehtjydtkuyiifykudrthag/ui/screens/Login.dart';
+import 'package:rehtjydtkuyiifykudrthag/ui/screens/signUp.dart';
 import 'package:rehtjydtkuyiifykudrthag/ui/screens/Profile.dart';
 import 'package:rehtjydtkuyiifykudrthag/ui/screens/RealLogin.dart';
 import 'package:rehtjydtkuyiifykudrthag/ui/screens/homepage3.dart';
@@ -42,7 +42,9 @@ User? user = FirebaseAuth.instance.currentUser;
   Widget build(BuildContext context) {
     return  MaterialApp(
       debugShowCheckedModeBanner:false ,
-
+      theme: ThemeData(bottomSheetTheme: const BottomSheetThemeData(
+backgroundColor: Colors.transparent,
+      )),
       home: user == null ? LoginScreen() : const MyHomePage3(),
     );
   }

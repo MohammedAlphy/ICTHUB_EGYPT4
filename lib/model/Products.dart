@@ -54,7 +54,7 @@ class TextAndIcon extends StatelessWidget {
         child: Container(
 
           decoration: BoxDecoration(
-            color: Colors.yellow,
+            color: Colors.black,
             image: DecorationImage(
               image: NetworkImage(
                 products.thumbnail!,

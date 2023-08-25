@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rehtjydtkuyiifykudrthag/cubit/my_app_cubit.dart';
 import 'package:rehtjydtkuyiifykudrthag/cubit/my_app_state.dart';
-import 'package:rehtjydtkuyiifykudrthag/ui/screens/Login.dart';
+import 'package:rehtjydtkuyiifykudrthag/ui/screens/signUp.dart';
 import 'package:rehtjydtkuyiifykudrthag/ui/screens/homepage3.dart';
 
 import '../../main.dart';
@@ -28,7 +28,13 @@ class LoginScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('email'),
+              const Text('Welcome back! Glad\nto see you, Again!',
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight:FontWeight.w700,
+              ),
+              ),
+              const SizedBox(height: 50,),
               TextFormField(
                 controller: emailC,
                 validator: (value) {
@@ -36,11 +42,28 @@ class LoginScreen extends StatelessWidget {
                     return 'the email must not be empty';
                   }
                 },
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.symmetric(vertical: 20
+                  ,horizontal: 20),
+                  hintText: 'Enter your Email',
+                  hintStyle: const TextStyle(
+                    color: Color(0xFF8391A1),
+                  ),
+                  fillColor: Color(0xFFF7F8F9),
+                  filled: true,
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: const BorderSide(
+                        color:Color(0xFFDADADA),
+                    ),
+                  )
+
+                ),
               ),
               const SizedBox(
                 height: 10,
               ),
-              const Text('password'),
+
               TextFormField(
                 controller: passwordC,
                 validator: (value) {
@@ -50,59 +73,134 @@ class LoginScreen extends StatelessWidget {
                     return 'password must be 6 numbers or more';
                   }
                 },
+                decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.symmetric(vertical: 20
+                        ,horizontal: 20),
+                    hintText: 'Enter your password',
+                    hintStyle: const TextStyle(
+                      color: Color(0xFF8391A1),
+                    ),
+                    fillColor: Color(0xFFF7F8F9),
+                    filled: true,
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(
+                        color:Color(0xFFDADADA),
+                      ),
+                    )
+
+                ),
               ),
-              const SizedBox(
-                height: 10,
+               SizedBox(
+                height: MediaQuery.of(context).size.height * 0.1,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  BlocConsumer<AppCubitA, AppStateA>(
-                    listener: (context, state) {
-                      if (state is LoginErrorState) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              state.error,
-                            ),
-                          ),
-                        );
-                      } else if (state is LoginDoneState) {
-                        Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (context) {
-                          return const MyHomePage3();
-                        }));
+
+
+              BlocConsumer<AppCubitA, AppStateA>(
+                listener: (context, state) {
+                  if (state is LoginErrorState) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          state.error,
+                        ),
+                      ),
+                    );
+                  } else if (state is LoginDoneState) {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) {
+                      return const MyHomePage3();
+                    }));
+                  }
+                },
+                builder: (context, state) {
+                  return ElevatedButton(
+                    style:
+                    ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFF8391A1),
+                      minimumSize: const Size(double.infinity, 60),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      textStyle: const TextStyle(fontSize: 20,),
+                    ),
+                    onPressed: () async {
+                      if (formKey.currentState!.validate()) {
+                        context
+                            .read<AppCubitA>()
+                            .login(emailC.text, passwordC.text);
                       }
                     },
-                    builder: (context, state) {
-                      return ElevatedButton(
-                        onPressed: () async {
-                          if (formKey.currentState!.validate()) {
-                            context
-                                .read<AppCubitA>()
-                                .login(emailC.text, passwordC.text);
-                          }
-                        },
-                        child: state is LoginLoadingState
-                            ? const Center(
-                                child: CircularProgressIndicator(
-                                  color: Colors.white,
-                                ),
-                              )
-                            : const Text('Login'),
-                      );
-                    },
+                    child: state is LoginLoadingState
+                        ? const Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
+                          )
+                        : const Text('Login'),
+                  );
+                },
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.1,
+              ),
+
+              const Row(
+                children: [
+                  Expanded(
+                    child: Divider(
+                      color: Color(0xFFE8ECF4),
+                      thickness: 2,
+                      endIndent: 10,
+                    ),
                   ),
-                  ElevatedButton(
-                      onPressed: () async {
+                  Text('Or login with',
+                  style: TextStyle(
+                    color: Color(0xFF6A707C),
+                  ),),
+                  Expanded(
+                    child: Divider(
+                      color: Color(0xFFE8ECF4),
+                      thickness: 2,
+                      indent: 10,
+                    ),
+                  ),
+                ],
+              ),
+              // SizedBox(
+              //   height: MediaQuery.of(context).size.height * 0.03,
+              // ),
+              // const Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     SvgPicture.assest(''
+              //
+              //      )
+              //   ],
+              // ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.1,
+              ),
+               Row(
+                 mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('Dont have an account ?'),
+                  TextButton(
+                      onPressed: (){
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
-                          return SignUp();
-                        }));
+                              return SignUp();
+                            }));
                       },
-                      child: const Text('Create account')),
+                      child:const Text(
+                        'Register now',
+                        style: TextStyle(
+                          color: Color(0xFFF14336)
+                        ),
+                      ), ),
                 ],
-              )
+              ),
+
             ],
           ),
         ),
