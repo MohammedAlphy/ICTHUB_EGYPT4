@@ -77,6 +77,7 @@ class _SignUpState extends State<SignUp> {
         'phone': phone,
         'name': name,
         'uid': uid,
+        'image': '',
       },
           SetOptions(merge: true)
       );

@@ -13,25 +13,25 @@ class MyHomePage3 extends StatefulWidget {
 }
 
 class _MyHomePage3State extends State<MyHomePage3> {
-  int currentIndex =0;
-  void getPage(int index){
-    setState(() {
-      currentIndex = index ;
-    });
+  int currentIndex = 0;
 
+  void getPage(int index) {
+    setState(() {
+      currentIndex = index;
+    });
   }
 
-  List<Widget> screens =[
+  List<Widget> screens = [
     const HomeScreen(),
-    const Page2(input1:'120'),
+    const Page2(input1: '120'),
     Profile(),
   ];
 
-  Future<bool> signOut()async{
-    try{
+  Future<bool> signOut() async {
+    try {
       await FirebaseAuth.instance.signOut();
-      return true ;
-    }catch(e) {
+      return true;
+    } catch (e) {
       print(e.toString());
       return false;
     }
@@ -45,47 +45,38 @@ class _MyHomePage3State extends State<MyHomePage3> {
         backgroundColor: Colors.blue,
         foregroundColor: Colors.black,
         leading: IconButton(
-            onPressed:()async{
+            onPressed: () async {
               await signOut().then((value) {
-                if (value){
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) {
-                            return LoginScreen();
-                          }));
-
+                if (value) {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) {
+                    return LoginScreen();
+                  }));
                 }
               });
-
             },
-            icon: const Icon(Icons.logout)
-        ),
+            icon: const Icon(Icons.logout)),
         centerTitle: true,
-        titleTextStyle: const TextStyle(fontSize: 40, color: Colors.black,fontWeight: FontWeight.bold),
+        titleTextStyle: const TextStyle(
+            fontSize: 40, color: Colors.black, fontWeight: FontWeight.bold),
         actions: const [
           Icon(Icons.menu),
-
         ],
-
-
       ),
       body: screens[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-
-          currentIndex: 0,
-          onTap:(index) {
+          currentIndex: currentIndex,
+          onTap: (index) {
             getPage(index);
-          } ,
-
+          },
           backgroundColor: Colors.white,
           items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home_filled),label: 'home'),
-            BottomNavigationBarItem(icon:Icon(Icons.calculate_outlined),label: 'Counter'),
-            BottomNavigationBarItem(icon:Icon(Icons.person),label: 'Profile'),
-          ]
-
-      ),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.home_filled), label: 'home'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.calculate_outlined), label: 'Counter'),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+          ]),
     );
   }
 }

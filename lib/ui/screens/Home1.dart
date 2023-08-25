@@ -24,9 +24,7 @@ class HomeScreen extends StatelessWidget {
   // }
   @override
   Widget build(BuildContext context) {
-    return NetworkRequest.isLoading
-        ? const Center(child: CircularProgressIndicator())
-        : Scaffold(
+    return  Scaffold(
             backgroundColor: Colors.grey[850],
             body:
                 BlocConsumer<AppCubitA, AppStateA>(listener: (context, state) {

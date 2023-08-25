@@ -43,7 +43,7 @@ class AppCubitA extends Cubit<AppStateA> {
       emit(GetDatLoadingState());
       String? uid = FirebaseAuth.instance.currentUser!.uid;
       DocumentSnapshot userA =
-      await FirebaseFirestore.instance.collection('users').doc(uid).get();
+      await FirebaseFirestore.instance.collection('Users').doc(uid).get();
       userData = UserDataModel(
           name: userA['name'],
           password: userA['password'],
@@ -54,6 +54,7 @@ class AppCubitA extends Cubit<AppStateA> {
       emit(GetDatDoneState());
     } catch (e) {
       emit(GetDatErrorState(e.toString()));
+      print(e);
     }
   }
 
@@ -68,7 +69,7 @@ class AppCubitA extends Cubit<AppStateA> {
           password: password
       ).then((value) {
         if (value.user != null) {
-          emit(LoginLoadingState());
+          emit(LoginDoneState());
         }
       });
     } catch (e) {
