@@ -37,13 +37,13 @@ class HomeScreen extends StatelessWidget {
         ),
         ),
         iconTheme: IconThemeData(size: 10),
-        // actions: [
-        //   Image.asset(
-        //     'assets/images/img.png',
-        // width: 70,
-        //
-        //   ),
-        // ],
+        actions: [
+          Image.asset(
+            'assets/images/img.png',
+        width: 70,
+
+          ),
+        ],
       ) ,
       body: BlocConsumer<AppCubitA, AppStateA>(listener: (context, state) {
         if (state is ErrorState) {

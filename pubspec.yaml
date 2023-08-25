@@ -42,6 +42,7 @@ dependencies:
   flutter_bloc: ^8.1.3
   image_picker: ^1.0.2
   firebase_storage: ^11.2.6
+  flutter_svg: ^2.0.7
 firebase_core: ^2.15.1
 firebase_auth: ^4.7.3
 cloud_firestore: ^4.8.5
@@ -68,9 +69,11 @@ flutter:
   uses-material-design: true
 
 
-assets:
-  - assets/images/img.png
-  - images/a_dot_ham.jpeg
+  assets:
+    - assets/apple.svg
+    - assets/facebook.svg
+    - assets/google.svg
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
